@@ -1,0 +1,39 @@
+[
+  {
+    "property": "email",
+    "label": "E-mail",
+    "value": "",
+    "type": "text",
+    "description": "Your email",
+    "error": null,
+    "readonly": false
+  },
+  {
+    "property": "mobile",
+    "label": "Mobile Phone",
+    "value": "",
+    "type": "text",
+    "description": "Your mobile phone number",
+    "error": null,
+    "readonly": false,
+    "multiple": true
+  },
+  {
+    "property": "company",
+    "label": "company",
+    "value": "",
+    "type": "text",
+    "description": "Where do you work?",
+    "error": null,
+    "readonly": false
+  },
+  {
+    "property": "job-title",
+    "label": "job title",
+    "value": "",
+    "type": "text",
+    "description": "Your job title",
+    "error": null,
+    "readonly": false
+  }
+]

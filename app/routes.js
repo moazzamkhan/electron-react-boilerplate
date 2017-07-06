@@ -1,15 +1,26 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
+import ProfileComponent from "./components/ProfileComponent";
+import ContactComponent from "./components/ContactComponent";
+import SocialComponent from "./components/SocialComponent";
+import EventsComponent from "./components/EventsComponent";
 
 export default () => (
   <App>
     <Switch>
-      <Route path="/counter" component={CounterPage} />
-      <Route path="/" component={HomePage} />
+      {
+        [["/", ProfileComponent],
+          ["/profile", ProfileComponent],
+          ["/contact", ContactComponent],
+          ["/social", SocialComponent],
+          ["/events", EventsComponent]].map(cfg => createRoute(cfg))
+      }
     </Switch>
   </App>
 );
+
+function createRoute([path, CustomComponent]) {
+  return <Route path={path} render={(props) => <Route><CustomComponent {...props} /></Route>} />
+}

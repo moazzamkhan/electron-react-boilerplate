@@ -14,5 +14,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "material-ui": "next",
+    "material-ui-icons": "^1.0.0-alpha.19"
   }
 }
