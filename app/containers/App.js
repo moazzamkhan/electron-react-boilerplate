@@ -1,12 +1,13 @@
 // @flow
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
+
 import Sidebar from "./Sidebar";
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import ProfileComponent from "../components/ProfileComponent";
 import ContactComponent from "../components/ContactComponent";
 import SocialComponent from "../components/SocialComponent";
 import EventsComponent from "../components/EventsComponent";
-import NotesComponent from "../components/NotesComponent";
+import NotesComponent from "../components/types/NotesComponent";
 
 
 const routes = [
@@ -44,23 +45,21 @@ const routes = [
 export default class App extends Component {
   render() {
     return (
-      <Router>
-        <div style={{ width: '100%', height: '100%' }}>
-          <Sidebar />
-          <div style={{ height: '100%', marginLeft: 200 }}>
-            {routes.map((route, index) => (
-              // Render more <Route>s with the same paths as
-              // above, but different components this time.
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                component={route.component}
-              />
-            ))}
-          </div>
+      <div style={{ width: '100%', height: '100%' }}>
+        <Sidebar />
+        <div style={{ height: '100%', marginLeft: 200 }}>
+          {routes.map((route, index) => (
+            // Render more <Route>s with the same paths as
+            // above, but different components this time.
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={route.component}
+            />
+          ))}
         </div>
-      </Router>
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
 
 import App from "./App"
-import SidebarExample from "./SidebarExample"
+import NotesContainer from "./types/NotesContainer"
 
 type RootType = {
   store: {},
@@ -17,7 +17,7 @@ export default function Root({ store, history }: RootType) {
     <MuiThemeProvider>
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <App />
+          <NotesContainer history={history} />
         </ConnectedRouter>
       </Provider>
     </MuiThemeProvider>

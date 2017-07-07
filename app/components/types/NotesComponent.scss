@@ -1,0 +1,11 @@
+:global {
+  .ReactCodeMirror {
+	height: 100%;
+  }
+
+  .CodeMirror {
+	height: 100% !important;
+	font-family: 'Fira Mono', 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif !important;
+	font-size: 14px !important;
+  }
+}
