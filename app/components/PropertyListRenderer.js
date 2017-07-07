@@ -13,7 +13,6 @@ import Button from 'material-ui/Button'
 import PropTypes from 'prop-types'
 import MenuIcon from 'material-ui-icons/Menu'
 import { createStyleSheet, withStyles } from 'material-ui/styles'
-import { Link } from 'react-router-dom';
 
 const styleSheet = createStyleSheet('ButtonAppBar', {
   root: {
@@ -39,7 +38,6 @@ const PropertyListRenderer = ({ title, classes, properties }) => {
         <Button color="contrast">Login</Button>
       </Toolbar>
     </AppBar>
-    <Link to="/contact">to contact</Link>
     <List disablePadding subheader={<ListSubheader>{title}</ListSubheader>}>
       {properties.map((p, i) => {
         return (<ListItem key={i}>

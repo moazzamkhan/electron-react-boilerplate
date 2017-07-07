@@ -22,5 +22,5 @@ export default () => (
 );
 
 function createRoute([path, CustomComponent]) {
-  return <Route path={path} render={(props) => <Route><CustomComponent {...props} /></Route>} />
+  return <Route key={path} path={path} component={CustomComponent} />
 }

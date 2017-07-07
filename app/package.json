@@ -14,7 +14,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "codemirror": "^5.27.4",
     "material-ui": "next",
-    "material-ui-icons": "^1.0.0-alpha.19"
+    "material-ui-icons": "^1.0.0-alpha.19",
+    "react-codemirror": "^1.0.0"
   }
 }

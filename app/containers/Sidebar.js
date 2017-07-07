@@ -1,10 +1,9 @@
 import React from 'react';
 import { createStyleSheet, withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import List, { ListItem, ListItemIcon, ListItemText, ListSubheader } from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListSubheader } from 'material-ui/List';
 import InboxIcon from 'material-ui-icons/Inbox';
-
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const styleSheet = createStyleSheet('DockedSidebar', {
@@ -20,10 +19,10 @@ const styleSheet = createStyleSheet('DockedSidebar', {
 
 const list = [{ items: ['Home'] }, {
   group: 'Personal',
-  items: ['Profile', 'Contact', 'Social', 'Events']
+  items: ['Profile', 'Contact', 'Social', 'Events', 'Notes']
 }]
 
-const Sidebar = ({ classes, history }) => {
+const Sidebar = ({ classes }) => {
   const sideList = (<div>
     {list.map((g, i) => (
       <List key={i} className={classes.list} disablePadding
@@ -33,7 +32,7 @@ const Sidebar = ({ classes, history }) => {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={category} onClick={() => history.push(`/${category.toLowerCase()}`)} />
+            <Link to={`/${category.toLowerCase()}`}>{category}</Link>
           </ListItem>
         ))}</div>
       </List>))}
@@ -45,4 +44,4 @@ Sidebar.propTypes = {
   // classes: PropTypes.object.isRequired,
 }
 
-export default withRouter(withStyles(styleSheet)(Sidebar));
+export default withStyles(styleSheet)(Sidebar);
