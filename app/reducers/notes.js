@@ -43,14 +43,14 @@ let notes = [
 export default function counter(state = notes, action) {
   switch (action.type) {
     case CREATE_NOTE:
-      return [...notes, {
+      return [...state, {
         id: action.payload.id,
         type: action.payload.type,
         value: action.payload,
         lastModified: action.payload.lastModified
       }];
     case MODIFY_NOTE:
-      return notes.map(note => {
+      return state.map(note => {
         if (note.id === action.payload.id) {
           return Object.assign({}, note, {
             value: action.payload.value,
@@ -60,7 +60,7 @@ export default function counter(state = notes, action) {
         return note
       });
     case DELETE_NOTE:
-      return notes.filter((note) => note.id !== action.payload.id);
+      return state.filter((note) => note.id !== action.payload.id);
     default:
       return state;
   }
