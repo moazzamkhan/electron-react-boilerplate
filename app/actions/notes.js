@@ -1,6 +1,7 @@
 // @flow
 import shortid from "shortid"
 
+export const OPEN_NOTE = "OPEN_NOTE"
 export const MODIFY_NOTE = "MODIFY_NOTE"
 export const CREATE_NOTE = "CREATE_NEW_NOTE"
 export const DELETE_NOTE = "DELETE_NOTE"
@@ -22,6 +23,16 @@ export function modifyNote(id: string, value: string) {
 export function deleteNote(noteId: string) {
   return {
     type: DELETE_NOTE,
+    payload: {
+      id: noteId
+    }
+  }
+}
+
+
+export function openNote(noteId: string) {
+  return {
+    type: OPEN_NOTE,
     payload: {
       id: noteId
     }

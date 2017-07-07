@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 
 
@@ -13,19 +13,31 @@ import NotesSidebar from "./NotesSidebar";
 import NotesComponent from "../../components/types/NotesComponent";
 import * as NotesActions from "../../actions/notes"
 
-const NotesContainer = ({ history, notes, modifyNote }) => (
-  <div style={{ width: '100%', height: '100%' }}>
-    <NotesSidebar list={notes} history={history} onNavigate={(to) => history.push(to)} />
-    <div style={{ height: '100%', marginLeft: 200 }}>
-      <Route path="/:id" component={(props) => <NotesComponent {...props} note={notes[+props.match.params.id]} modifyNote={modifyNote} />} />
+const NotesContainer = (props) => {
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <NotesSidebar list={items} history={history} onNavigate={(to) => history.push(to)} />
+      <div style={{ height: '100%', marginLeft: 200 }}>
+        <NotesComponent note={note} modifyNote={modifyNote} />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
+function getId(history) {
+  let path = history.location.pathname
+  return +(path.substring(path.lastIndexOf("/") + 1)) || 0;
+}
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
-    notes: state.notes.sort((a, b) => a.lastModified > b.lastModified)
+    items: state.notes.sort((a, b) => a.lastModified > b.lastModified).map((n) => {
+      return {
+        title: n.value.split(/\r?\n/)[0],
+        id: n.id
+      }
+    }),
+    note: state.notes[getId(ownProps.history)]
   };
 }
 
