@@ -18,19 +18,21 @@ const styleSheet = createStyleSheet('DockedSidebar', {
   },
 });
 
-const NotesSidebar = ({ classes, list, history }) => (
-  <Drawer open docked className={classes.paper}>
-    <div>
-      <List className={classes.list} disablePadding>
-        <div>{list.map((item) => (
-          <ListItem key={item.id} dense button divider onClick={() => history.push(`/${item.id}`)}>
-            <ListItemText primary={item.value} secondary={`/${item.id}`}></ListItemText>
-          </ListItem>
-        ))}</div>
-      </List>
-    </div>
-  </Drawer>
-)
+const NotesSidebar = ({ classes, list, onNavigate }) => {
+  return (
+    <Drawer open docked className={classes.paper}>
+      <div>
+        <List className={classes.list} disablePadding>
+          <div>{list.map((item) => (
+            <ListItem key={item.id} dense button divider onClick={() => onNavigate(`/${item.id}`)}>
+              <ListItemText primary={item.value.split(/\r?\n/)[0]} secondary={`/${item.id}`}></ListItemText>
+            </ListItem>
+          ))}</div>
+        </List>
+      </div>
+    </Drawer>
+  )
+}
 
 
 NotesSidebar.propTypes = {

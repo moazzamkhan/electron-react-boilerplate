@@ -20,10 +20,28 @@ const options = {
   theme: 'one-light'
 };
 
-const NotesComponent = ({ data }) => {
-  options.mode = data.type;
-  return <CodeMirror value={data.value} options={options} autoFocus />
+
+class NotesComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      id: props.note.id,
+      value: props.note.value
+    }
+  }
+
+  render() {
+    return <CodeMirror
+      ref={(cm) => this.codemirror = cm}
+      value={this.state.value}
+      options={options}
+      autoFocus />
+  }
+
+  componentWillUnmount() {
+    // onChange={(value) => this.props.modifyNote(this.state.id, value)}
+    // this.props.modifyNote(this.state.id, this.codemirror.getCodeMirror().getValue())
+  }
 }
 
 export default NotesComponent
-

@@ -17,6 +17,7 @@
     "codemirror": "^5.27.4",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-alpha.19",
-    "react-codemirror": "^1.0.0"
+    "react-codemirror": "^1.0.0",
+    "shortid": "^2.2.8"
   }
 }
