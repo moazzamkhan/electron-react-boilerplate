@@ -1,11 +1,11 @@
 // @flow
 import { combineReducers } from 'redux';
 import counter from './counter';
-import notes from "./notes"
+import notebook from "./notes"
 
 const rootReducer = combineReducers({
   counter,
-  notes
+  notebook
 });
 
 export default rootReducer;

@@ -1,7 +1,5 @@
 import React from 'react';
-import CodeMirror from 'react-codemirror';
-
-
+import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/markdown/markdown';
@@ -12,36 +10,56 @@ import './NotesComponent.scss'
 import './one-dark.scss'
 import './one-light.scss'
 
-const options = {
-  lineNumbers: true,
-  readOnly: false,
-  mode: 'javascript',
-  styleActiveLine: true,
-  theme: 'one-light'
-};
-
 
 class NotesComponent extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      id: props.note.id,
-      value: props.note.value
+    this.state = Object.assign({
+      readOnly: false,
+      mode: 'javascript',
+      styleActiveLine: true,
+      theme: 'one-light'
+    }, {
+      id: props.id,
+      mode: props.type,
+      value: props.value
+    });
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+
+  componentDidMount() {
+    this.codemirror = CodeMirror(this.el, {
+      value: this.state.value,
+      mode: this.state.mode,
+      theme: 'one-light'
+    });
+    this.codemirror.on("change", (cm) => this.handleChange(cm.getValue()));
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ id: nextProps.id, value: nextProps.value, type: nextProps.type })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.id !== this.state.id) {
+      console.log(this.state.value)
+      this.codemirror.setValue(this.state.value)
     }
   }
 
   render() {
-    return <CodeMirror
-      ref={(cm) => this.codemirror = cm}
-      value={this.state.value}
-      options={options}
-      autoFocus />
+    return <div className="ReactCodeMirror" ref={(el) => this.el = el} />
   }
 
-  componentWillUnmount() {
-    // onChange={(value) => this.props.modifyNote(this.state.id, value)}
-    // this.props.modifyNote(this.state.id, this.codemirror.getCodeMirror().getValue())
+  handleChange(value) {
+    if (value !== this.state.value) {
+      this.props.onChange(this.state.id, value);
+    }
   }
+
 }
 
 export default NotesComponent

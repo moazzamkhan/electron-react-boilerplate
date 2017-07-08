@@ -24,7 +24,7 @@ const NotesSidebar = ({ classes, list, onNavigate }) => {
       <div>
         <List className={classes.list} disablePadding>
           <div>{list.map((item) => (
-            <ListItem key={item.id} dense button divider onClick={() => onNavigate(`/${item.id}`)}>
+            <ListItem key={item.id} dense button divider onClick={() => onNavigate(item.id)}>
               <ListItemText primary={item.title} secondary={`/${item.id}`}></ListItemText>
             </ListItem>
           ))}</div>

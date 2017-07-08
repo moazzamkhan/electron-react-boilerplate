@@ -11,15 +11,15 @@
   }
 
   .cm-s-one-light div.CodeMirror-selected {
-	background: #3E4451;
+	background: rgba(56, 58, 66, 0.05);
   }
 
   .cm-s-one-light .CodeMirror-line::selection, .cm-s-one-light .CodeMirror-line > span::selection, .cm-s-one-light .CodeMirror-line > span > span::selection {
-	background: rgba(73, 72, 62, 0.99);
+	background: rgba(56, 58, 66, 0.05);
   }
 
   .cm-s-one-light .CodeMirror-line::-moz-selection, .cm-s-one-light .CodeMirror-line > span::-moz-selection, .cm-s-one-light .CodeMirror-line > span > span::-moz-selection {
-	background: rgba(73, 72, 62, 0.99);
+	background: rgba(56, 58, 66, 0.05);
   }
 
   .cm-s-one-light .CodeMirror-gutters {
