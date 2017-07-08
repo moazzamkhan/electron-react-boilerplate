@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 import { Provider } from 'react-redux';
-import { MuiThemeProvider } from 'material-ui/styles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import NotesContainer from "./types/NotesContainer"
 
 type RootType = {

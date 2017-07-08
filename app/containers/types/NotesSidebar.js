@@ -1,35 +1,31 @@
 import React from 'react';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
+
 import "./NotesSidebar.scss"
 
-const styleSheet = createStyleSheet('DockedSidebar', {
-  paper: {
-    background: "red"
-  },
+const styles = {
   list: {
-    width: 200,
-    flex: 'initial',
+    padding: "0"
   },
-  listFull: {
-    width: 'auto',
-    flex: 'initial',
-  },
-});
+  listItem: {
+    padding: "10px 16px 16px",
+    borderBottom: "1px solid rgb(224, 224, 224)"
+  }
 
-const NotesSidebar = ({ classes, list, onNavigate }) => {
+}
+const NotesSidebar = ({ list, onNavigate, width, current }) => {
   return (
-    <Drawer open docked className={classes.paper}>
-      <div>
-        <List className={classes.list} disablePadding>
-          <div>{list.map((item) => (
-            <ListItem key={item.id} dense button divider onClick={() => onNavigate(item.id)}>
-              <ListItemText primary={item.title} secondary={`/${item.id}`}></ListItemText>
-            </ListItem>
-          ))}</div>
-        </List>
-      </div>
+    <Drawer width={width} open docked className="notes-sidebar">
+      <List style={styles.list}>
+        {
+          list.map((item) => (<ListItem key={item.id} innerDivStyle={Object.assign({}, styles.listItem, {
+              backgroundColor: ((current === item.id) ? "#efefef" : "inherit")
+            })} onClick={() => onNavigate(item.id)} primaryText={item.title}
+                                        secondaryText={item.lastModified}
+            />)
+          )}
+      </List>
     </Drawer>
   )
 }
@@ -39,4 +35,4 @@ NotesSidebar.propTypes = {
   // classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styleSheet)(NotesSidebar);
+export default NotesSidebar;

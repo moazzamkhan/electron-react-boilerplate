@@ -26,14 +26,14 @@ function notes(state = noteList, action) {
         id: action.payload.id,
         type: action.payload.type,
         value: action.payload,
-        lastModified: action.payload.lastModified
+        lastModified: action.payload.timestamp
       }];
     case MODIFY_NOTE:
       return state.map(note => {
         if (note.id === action.payload.id) {
           return Object.assign({}, note, {
             value: action.payload.value,
-            lastModified: action.payload.lastModified
+            lastModified: action.payload.timestamp
           })
         }
         return note
