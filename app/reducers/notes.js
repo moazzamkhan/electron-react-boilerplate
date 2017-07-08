@@ -1,59 +1,69 @@
 // @flow
 
 import { combineReducers } from 'redux'
+import shortid from "shortid"
 
 import { CREATE_NOTE, DELETE_NOTE, MODIFY_NOTE, OPEN_NOTE } from "../actions/notes";
 
-const noteList = [
-  {
-    "id": "0",
-    "type": "javascript",
-    "value": "var type=\"hello\"\n var r = 7 - 10;\n var r = 7 - 10;",
-    lastModified: 0
-  }, {
-    "id": "1",
-    "type": "markdown",
-    "value": "#Hello\n##hi",
-    lastModified: 5
+function createNew() {
+  let o = {
+    current: "",
+    notes: [createNote()]
   }
-];
+  o.current = o.notes[0].id
+  return o;
+}
 
-
-function notes(state = noteList, action) {
-  switch (action.type) {
-    case CREATE_NOTE:
-      return [...state, {
-        id: action.payload.id,
-        type: action.payload.type,
-        value: action.payload,
-        lastModified: action.payload.timestamp
-      }];
-    case MODIFY_NOTE:
-      return state.map(note => {
-        if (note.id === action.payload.id) {
-          return Object.assign({}, note, {
-            value: action.payload.value,
-            lastModified: action.payload.timestamp
-          })
-        }
-        return note
-      });
-    case DELETE_NOTE:
-      return state.filter((note) => note.id !== action.payload.id);
-    default:
-      return state;
-
+function createNote() {
+  return {
+    id: shortid.generate(),
+    type: "text",
+    value: "",
+    lastModified: new Date().getTime()
   }
 }
 
-export function current(state = noteList[0].id, action) {
+function notebook(state = createNew(), action) {
   switch (action.type) {
     case OPEN_NOTE:
-      return action.payload.id
+      return Object.assign({}, { current: action.payload.id, notes: [...state.notes] })
+    case CREATE_NOTE:
+      const n = createNote()
+      return Object.assign({}, {
+        current: n.id, notes: [n, ...state.notes]
+      })
+
+    case MODIFY_NOTE:
+      return Object.assign({}, {
+        current: state.current,
+        notes: state.notes.map(note => {
+          if (note.id === action.payload.id) {
+            return Object.assign({}, note, {
+              value: action.payload.value,
+              lastModified: action.payload.timestamp
+            })
+          }
+          return note
+        }).sort((a, b) => a.lastModified < b.lastModified)
+      })
+    case DELETE_NOTE:
+      if (state.notes.length === 1) {
+        return createNew()
+      }
+
+      const index = state.notes.findIndex((note) => note.id === action.payload.id)
+      const notes = state.notes.filter((note) => note.id !== action.payload.id)
+      const current = notes[Math.min(notes.length - 1, index)].id
+
+      return Object.assign({}, {
+        current: current,
+        notes: notes.filter((note) => note.id !== action.payload.id)
+      })
     default:
-      return state
+      return state;
   }
 }
 
-const notebook = combineReducers({ current, notes })
+
+// const notebook = combineReducers({ current, notes })
 export default notebook

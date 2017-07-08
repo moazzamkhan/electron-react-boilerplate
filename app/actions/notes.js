@@ -44,7 +44,9 @@ export function createNote() {
     type: CREATE_NOTE,
     payload: {
       id: shortid.generate(),
-      timestamp: new Date().getTime()
+      timestamp: new Date().getTime(),
+      type: "text",
+      value: ""
     }
   }
 }

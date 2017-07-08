@@ -9,10 +9,11 @@ import * as NotesActions from "../../actions/notes"
 
 const sidebarWidth = 250
 
-const NotesContainer = ({ note, items, openNote, modifyNote, current }) => {
+const NotesContainer = ({ note, items, openNote, current, modifyNote, deleteNote, createNote }) => {
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <NotesSidebar list={items} onNavigate={(to) => openNote(to)} width={sidebarWidth} current={current} />
+      <NotesSidebar list={items} onNavigate={(to) => openNote(to)} width={sidebarWidth} current={current}
+                    deleteNote={deleteNote} createNote={createNote} />
       <div style={{ height: '100%', marginLeft: sidebarWidth }}>
         <NotesComponent {...note} onChange={(id, text) => {
           modifyNote(id, text)
@@ -24,9 +25,9 @@ const NotesContainer = ({ note, items, openNote, modifyNote, current }) => {
 
 function mapStateToProps(state) {
   return {
-    items: state.notebook.notes.sort((a, b) => a.lastModified < b.lastModified).map((n) => {
+    items: state.notebook.notes.map((n) => {
       return {
-        title: n.value.split(/\r?\n/)[0],
+        title: n.value ? n.value.split(/\r?\n/)[0] : "New Note",
         id: n.id,
         lastModified: moment(new Date(n.lastModified)).fromNow()
       }
