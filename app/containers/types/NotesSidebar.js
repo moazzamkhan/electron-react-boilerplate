@@ -10,6 +10,10 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import "./NotesSidebar.scss"
 
 const styles = {
+  drawer: {
+    height: window.innerHeight,
+    boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 0px"
+  },
   button: {
     border: "none",
     padding: "0",
@@ -34,7 +38,7 @@ const NotesSidebar = (props) => {
   let { list, onNavigate, width, current, deleteNote, createNote } = props;
   console.log(props)
   return (
-    <Drawer width={width} open docked className="notes-sidebar" containerStyle={{ height: window.innerHeight }}>
+    <Drawer width={width} open docked className="notes-sidebar" containerStyle={styles.drawer}>
       <Toolbar style={{ padding: "0", height: 36, backgroundColor: grey500 }}>
         <ToolbarGroup>
           <FloatingActionButton mini style={styles.button} onClick={() => deleteNote(current)}
